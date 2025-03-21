@@ -260,46 +260,6 @@ const signupPassword = document.getElementById('signupPassword');
 const strengthBar = document.querySelector('.strength-bar');
 const strengthText = document.querySelector('.strength-text');
 
-// New feature: Local image gallery
-const localImageGallery = [
-    {
-        id: 'local-1',
-        name: 'Abstract Art',
-        thumbnail: 'https://source.unsplash.com/featured/300x300/?abstract',
-        fullImage: 'https://source.unsplash.com/featured/1200x1200/?abstract'
-    },
-    {
-        id: 'local-2',
-        name: 'Digital Landscape',
-        thumbnail: 'https://source.unsplash.com/featured/300x300/?landscape,digital',
-        fullImage: 'https://source.unsplash.com/featured/1200x1200/?landscape,digital'
-    },
-    {
-        id: 'local-3',
-        name: 'Cyberpunk Portrait',
-        thumbnail: 'https://source.unsplash.com/featured/300x300/?portrait,neon',
-        fullImage: 'https://source.unsplash.com/featured/1200x1200/?portrait,neon'
-    },
-    {
-        id: 'local-4',
-        name: 'Colorful Geometry',
-        thumbnail: 'https://source.unsplash.com/featured/300x300/?geometry,colorful',
-        fullImage: 'https://source.unsplash.com/featured/1200x1200/?geometry,colorful'
-    },
-    {
-        id: 'local-5',
-        name: 'Future City',
-        thumbnail: 'https://source.unsplash.com/featured/300x300/?city,futuristic',
-        fullImage: 'https://source.unsplash.com/featured/1200x1200/?city,futuristic'
-    },
-    {
-        id: 'local-6',
-        name: 'Space Exploration',
-        thumbnail: 'https://source.unsplash.com/featured/300x300/?space,planets',
-        fullImage: 'https://source.unsplash.com/featured/1200x1200/?space,planets'
-    }
-];
-
 // Initialize app when page loads
 window.addEventListener('DOMContentLoaded', initialize);
 
@@ -369,18 +329,6 @@ function setupEventListeners() {
     // NFT Image handling
     nftImageInput.addEventListener('change', handleImageUpload);
     removeImageBtn.addEventListener('click', removeImage);
-    
-    // Gallery button
-    const openGalleryBtn = document.getElementById('openGalleryBtn');
-    if (openGalleryBtn) {
-        openGalleryBtn.addEventListener('click', openImageGalleryModal);
-    }
-    
-    // Import URL button
-    const importURLBtn = document.getElementById('importURLBtn');
-    if (importURLBtn) {
-        importURLBtn.addEventListener('click', openImageImportModal);
-    }
     
     // Form inputs
     nftDescriptionInput.addEventListener('input', updateCharCount);
@@ -724,14 +672,13 @@ function showMintingStatus(message, status) {
 // NFT Loading and Display
 async function loadNFTs() {
     try {
-        // For demo purposes, we'll create some example NFTs
-        // In a real app, you would load these from the contract
+        // For demo purposes, we'll create some example NFTs with curated online images
         const exampleNFTs = [
             {
                 id: '1',
-                name: 'Digital Abstract',
-                description: 'Vibrant abstract artwork showcasing digital creativity.',
-                image: 'https://source.unsplash.com/random/800x800/?abstract,art',
+                name: 'Cosmic Dreamscape',
+                description: 'A mesmerizing digital artwork exploring the depths of space and imagination.',
+                image: 'https://images.unsplash.com/photo-1634193295627-1cdddf751ebf?w=800&h=800&fit=crop',
                 creator: currentAccount || contractAddress,
                 owner: currentAccount || contractAddress,
                 price: '0.75',
@@ -739,9 +686,9 @@ async function loadNFTs() {
             },
             {
                 id: '2',
-                name: 'Cyberpunk City',
-                description: 'Futuristic cityscape with neon lights and cyber aesthetics.',
-                image: 'https://source.unsplash.com/random/800x800/?cyberpunk,city',
+                name: 'Neon City Nights',
+                description: 'Cyberpunk-inspired cityscape capturing the essence of future urban life.',
+                image: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=800&h=800&fit=crop',
                 creator: currentAccount || contractAddress,
                 owner: '0x8765432109876543210987654321098765432109',
                 price: '1.2',
@@ -749,9 +696,9 @@ async function loadNFTs() {
             },
             {
                 id: '3',
-                name: 'Space Exploration',
-                description: 'A journey through space featuring planets and nebulae.',
-                image: 'https://source.unsplash.com/random/800x800/?space,galaxy',
+                name: 'Digital Flora',
+                description: 'Abstract representation of nature through digital manipulation.',
+                image: 'https://images.unsplash.com/photo-1549490349-8643362247b5?w=800&h=800&fit=crop',
                 creator: '0x2345678901234567890123456789012345678901',
                 owner: '0x2345678901234567890123456789012345678901',
                 price: '2.5',
@@ -759,9 +706,9 @@ async function loadNFTs() {
             },
             {
                 id: '4',
-                name: 'Digital Identity',
-                description: 'A reflection on digital personhood in the age of NFTs.',
-                image: 'https://source.unsplash.com/random/800x800/?digital,portrait',
+                name: 'Quantum Reflections',
+                description: 'A visual exploration of quantum mechanics and parallel universes.',
+                image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=800&fit=crop',
                 creator: '0x3456789012345678901234567890123456789012',
                 owner: currentAccount || contractAddress,
                 price: '1.8',
@@ -769,9 +716,9 @@ async function loadNFTs() {
             },
             {
                 id: '5',
-                name: 'Generative Patterns',
-                description: 'Algorithm-generated patterns creating mesmerizing visuals.',
-                image: 'https://source.unsplash.com/random/800x800/?pattern,generative',
+                name: 'Sacred Geometry',
+                description: 'Intricate patterns inspired by mathematical principles and sacred geometry.',
+                image: 'https://images.unsplash.com/photo-1603665301175-57ba46f392bf?w=800&h=800&fit=crop',
                 creator: currentAccount || contractAddress,
                 owner: currentAccount || contractAddress,
                 price: '0.9',
@@ -779,9 +726,9 @@ async function loadNFTs() {
             },
             {
                 id: '6',
-                name: 'Blockchain Dreams',
-                description: 'Visual representation of blockchain technology and its potential.',
-                image: 'https://source.unsplash.com/random/800x800/?blockchain,technology',
+                name: 'Digital Renaissance',
+                description: 'A modern interpretation of classical art through digital medium.',
+                image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&h=800&fit=crop',
                 creator: '0x4567890123456789012345678901234567890123',
                 owner: '0x4567890123456789012345678901234567890123',
                 price: '3.2',
@@ -789,9 +736,9 @@ async function loadNFTs() {
             },
             {
                 id: '7',
-                name: 'Nature Pixelated',
-                description: 'Natural landscapes rendered in pixel art style.',
-                image: 'https://source.unsplash.com/random/800x800/?pixel,nature',
+                name: 'Ethereal Landscapes',
+                description: 'Surreal landscapes blending reality with digital artistry.',
+                image: 'https://images.unsplash.com/photo-1614851099511-773084f6911d?w=800&h=800&fit=crop',
                 creator: '0x5678901234567890123456789012345678901234',
                 owner: '0x5678901234567890123456789012345678901234',
                 price: '1.5',
@@ -799,12 +746,92 @@ async function loadNFTs() {
             },
             {
                 id: '8',
-                name: 'Crypto Wildlife',
-                description: 'Endangered species raising awareness through digital art.',
-                image: 'https://source.unsplash.com/random/800x800/?wildlife,animal',
+                name: 'Future Artifacts',
+                description: 'Digital artifacts from an imagined future civilization.',
+                image: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=800&h=800&fit=crop',
                 creator: currentAccount || contractAddress,
                 owner: '0x6789012345678901234567890123456789012345',
                 price: '2.7',
+                forSale: true
+            },
+            {
+                id: '9',
+                name: 'Crystal Visions',
+                description: 'Crystalline structures reflecting light in impossible ways.',
+                image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=800&fit=crop',
+                creator: '0x7890123456789012345678901234567890123456',
+                owner: currentAccount || contractAddress,
+                price: '1.9',
+                forSale: true
+            },
+            {
+                id: '10',
+                name: 'Neural Networks',
+                description: 'Abstract visualization of artificial intelligence and neural pathways.',
+                image: 'https://images.unsplash.com/photo-1544256718-3bcf237f3974?w=800&h=800&fit=crop',
+                creator: currentAccount || contractAddress,
+                owner: currentAccount || contractAddress,
+                price: '2.3',
+                forSale: true
+            },
+            {
+                id: '11',
+                name: 'Liquid Dreams',
+                description: 'Fluid dynamics captured in a moment of perfect harmony.',
+                image: 'https://images.unsplash.com/photo-1551636898-47668aa61de2?w=800&h=800&fit=crop',
+                creator: '0x8901234567890123456789012345678901234567',
+                owner: '0x8901234567890123456789012345678901234567',
+                price: '1.7',
+                forSale: false
+            },
+            {
+                id: '12',
+                name: 'Digital Botanica',
+                description: 'Hybrid flora species generated through algorithmic evolution.',
+                image: 'https://images.unsplash.com/photo-1567095761054-7a02e69e5c43?w=800&h=800&fit=crop',
+                creator: currentAccount || contractAddress,
+                owner: '0x9012345678901234567890123456789012345678',
+                price: '2.1',
+                forSale: true
+            },
+            {
+                id: '13',
+                name: 'Quantum Entanglement',
+                description: 'Visual representation of particles existing in multiple states.',
+                image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=800&h=800&fit=crop',
+                creator: '0x0123456789012345678901234567890123456789',
+                owner: currentAccount || contractAddress,
+                price: '3.5',
+                forSale: true
+            },
+            {
+                id: '14',
+                name: 'Holographic Memories',
+                description: 'Fragments of digital consciousness preserved in light.',
+                image: 'https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=800&h=800&fit=crop',
+                creator: currentAccount || contractAddress,
+                owner: currentAccount || contractAddress,
+                price: '1.4',
+                forSale: true
+            },
+            {
+                id: '15',
+                name: 'Synthetic Nature',
+                description: 'The intersection of organic forms and digital creation.',
+                image: 'https://images.unsplash.com/photo-1604871000636-074fa5117945?w=800&h=800&fit=crop',
+                creator: '0x1234567890123456789012345678901234567890',
+                owner: '0x1234567890123456789012345678901234567890',
+                price: '2.8',
+                forSale: false
+            },
+            {
+                id: '16',
+                name: 'Fractal Universe',
+                description: 'Infinite patterns revealing the mathematical beauty of existence.',
+                image: 'https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?w=800&h=800&fit=crop',
+                creator: currentAccount || contractAddress,
+                owner: '0x2345678901234567890123456789012345678901',
+                price: '4.2',
                 forSale: true
             }
         ];
@@ -1751,351 +1778,4 @@ function checkLoggedInStatus() {
         isLoggedIn = true;
         updateUserInterface();
     }
-}
-
-// Open image gallery modal to select an image
-function openImageGalleryModal() {
-    // Create gallery modal if it doesn't exist
-    let galleryModal = document.getElementById('imageGalleryModal');
-    
-    if (!galleryModal) {
-        galleryModal = document.createElement('div');
-        galleryModal.id = 'imageGalleryModal';
-        galleryModal.className = 'modal';
-        
-        galleryModal.innerHTML = `
-            <div class="modal-content image-gallery-modal">
-                <span class="close-modal" id="closeGalleryModal">&times;</span>
-                <h3><i class="fas fa-images"></i> Select an Image</h3>
-                <div class="gallery-search">
-                    <input type="text" id="gallerySearch" placeholder="Search for more images...">
-                    <button id="searchGalleryBtn"><i class="fas fa-search"></i></button>
-                </div>
-                <div class="image-gallery-grid" id="imageGalleryGrid"></div>
-                <div class="gallery-actions">
-                    <button id="uploadCustomImage" class="secondary-button">
-                        <i class="fas fa-upload"></i> Upload Custom Image
-                    </button>
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(galleryModal);
-        
-        // Add event listeners
-        document.getElementById('closeGalleryModal').addEventListener('click', () => {
-            galleryModal.classList.add('hidden');
-        });
-        
-        document.getElementById('uploadCustomImage').addEventListener('click', () => {
-            galleryModal.classList.add('hidden');
-            nftImageInput.click();
-        });
-        
-        // Add search functionality
-        const searchInput = document.getElementById('gallerySearch');
-        const searchBtn = document.getElementById('searchGalleryBtn');
-        
-        searchBtn.addEventListener('click', () => {
-            const searchTerm = searchInput.value.trim();
-            if (searchTerm) {
-                searchGalleryImages(searchTerm);
-            }
-        });
-        
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                const searchTerm = searchInput.value.trim();
-                if (searchTerm) {
-                    searchGalleryImages(searchTerm);
-                }
-            }
-        });
-        
-        // Close when clicking outside
-        galleryModal.addEventListener('click', (e) => {
-            if (e.target === galleryModal) {
-                galleryModal.classList.add('hidden');
-            }
-        });
-    }
-    
-    // Populate gallery grid with default images
-    populateGalleryGrid(localImageGallery);
-    
-    // Show modal
-    galleryModal.classList.remove('hidden');
-}
-
-// Search for additional gallery images
-function searchGalleryImages(searchTerm) {
-    const galleryGrid = document.getElementById('imageGalleryGrid');
-    
-    // Show loading state
-    galleryGrid.innerHTML = `
-        <div class="gallery-loading">
-            <i class="fas fa-spinner fa-spin"></i>
-            <p>Searching for "${searchTerm}"...</p>
-        </div>
-    `;
-    
-    // Fetch images from Unsplash
-    // Note: In a production app, you would use your own API key and proper attribution
-    const searchUrl = `https://source.unsplash.com/featured/?${encodeURIComponent(searchTerm)}`;
-    
-    // Generate a set of random images based on the search term
-    const searchResults = [];
-    const totalResults = 8;
-    
-    // Create promises for all image fetches
-    const promises = [];
-    
-    for (let i = 0; i < totalResults; i++) {
-        // Add random parameter to avoid cache
-        const uniqueUrl = `${searchUrl}&random=${Math.random()}`;
-        
-        // Create a promise that resolves with the image data
-        const promise = new Promise((resolve) => {
-            // We can't directly get the redirected URL, so we'll create an image element
-            const img = new Image();
-            img.onload = function() {
-                resolve({
-                    id: `search-${i}`,
-                    name: `${searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1)} ${i+1}`,
-                    thumbnail: this.src,
-                    fullImage: this.src
-                });
-            };
-            img.onerror = function() {
-                resolve(null); // Resolve with null if there's an error
-            };
-            img.src = uniqueUrl;
-        });
-        
-        promises.push(promise);
-    }
-    
-    // Wait for all promises to resolve
-    Promise.all(promises)
-        .then(results => {
-            // Filter out any null results
-            const validResults = results.filter(result => result !== null);
-            
-            if (validResults.length > 0) {
-                // Populate the gallery with search results
-                populateGalleryGrid(validResults);
-            } else {
-                galleryGrid.innerHTML = `
-                    <div class="gallery-error">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <p>No images found for "${searchTerm}". Try a different search term.</p>
-                    </div>
-                `;
-            }
-        })
-        .catch(error => {
-            console.error('Error searching for images:', error);
-            galleryGrid.innerHTML = `
-                <div class="gallery-error">
-                    <i class="fas fa-exclamation-circle"></i>
-                    <p>Error searching for images. Please try again.</p>
-                </div>
-            `;
-        });
-}
-
-// Populate the gallery grid with images
-function populateGalleryGrid(images) {
-    const galleryGrid = document.getElementById('imageGalleryGrid');
-    galleryGrid.innerHTML = '';
-    
-    images.forEach(image => {
-        const imageItem = document.createElement('div');
-        imageItem.className = 'gallery-image-item';
-        imageItem.innerHTML = `
-            <img src="${image.thumbnail}" alt="${image.name}">
-            <div class="image-name">${image.name}</div>
-        `;
-        
-        imageItem.addEventListener('click', () => {
-            selectGalleryImage(image);
-            document.getElementById('imageGalleryModal').classList.add('hidden');
-        });
-        
-        galleryGrid.appendChild(imageItem);
-    });
-    
-    // Add Upload Your Own option
-    const uploadOption = document.createElement('div');
-    uploadOption.className = 'gallery-image-item upload-option';
-    uploadOption.innerHTML = `
-        <div class="upload-placeholder">
-            <i class="fas fa-plus"></i>
-            <div>Upload Your Own</div>
-        </div>
-    `;
-    
-    uploadOption.addEventListener('click', () => {
-        document.getElementById('imageGalleryModal').classList.add('hidden');
-        nftImageInput.click();
-    });
-    
-    galleryGrid.appendChild(uploadOption);
-}
-
-// Open image import modal
-function openImageImportModal() {
-    // Create import modal if it doesn't exist
-    let importModal = document.getElementById('imageImportModal');
-    
-    if (!importModal) {
-        importModal = document.createElement('div');
-        importModal.id = 'imageImportModal';
-        importModal.className = 'modal hidden';
-        
-        importModal.innerHTML = `
-            <div class="modal-content import-modal">
-                <span class="close-modal" id="closeImportModal">&times;</span>
-                <h3><i class="fas fa-link"></i> Import Image from URL</h3>
-                <div class="form-group">
-                    <label for="imageURL">Image URL</label>
-                    <input type="url" id="imageURL" placeholder="https://example.com/image.jpg">
-                </div>
-                <div class="import-preview hidden" id="importPreview">
-                    <img id="importPreviewImg" src="#" alt="Preview">
-                </div>
-                <div class="form-actions">
-                    <button id="loadImageFromURL" class="secondary-button">
-                        <i class="fas fa-eye"></i> Preview
-                    </button>
-                    <button id="importImageFromURL" class="cta-button" disabled>
-                        <i class="fas fa-download"></i> Import
-                    </button>
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(importModal);
-        
-        // Add event listeners
-        document.getElementById('closeImportModal').addEventListener('click', () => {
-            importModal.classList.add('hidden');
-        });
-        
-        const imageUrlInput = document.getElementById('imageURL');
-        const loadImageBtn = document.getElementById('loadImageFromURL');
-        const importImageBtn = document.getElementById('importImageFromURL');
-        const importPreview = document.getElementById('importPreview');
-        const importPreviewImg = document.getElementById('importPreviewImg');
-        
-        loadImageBtn.addEventListener('click', () => {
-            const url = imageUrlInput.value.trim();
-            if (url) {
-                // Show loading state
-                loadImageBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-                loadImageBtn.disabled = true;
-                
-                // Load the image
-                importPreviewImg.onload = () => {
-                    importPreview.classList.remove('hidden');
-                    importImageBtn.disabled = false;
-                    loadImageBtn.innerHTML = '<i class="fas fa-eye"></i> Preview';
-                    loadImageBtn.disabled = false;
-                };
-                
-                importPreviewImg.onerror = () => {
-                    showCustomNotification('Invalid image URL or image could not be loaded', 'error');
-                    loadImageBtn.innerHTML = '<i class="fas fa-eye"></i> Preview';
-                    loadImageBtn.disabled = false;
-                };
-                
-                importPreviewImg.src = url;
-            } else {
-                showCustomNotification('Please enter a valid URL', 'warning');
-            }
-        });
-        
-        importImageBtn.addEventListener('click', () => {
-            const url = imageUrlInput.value.trim();
-            importImageFromURL(url);
-            importModal.classList.add('hidden');
-        });
-        
-        // Close when clicking outside
-        importModal.addEventListener('click', (e) => {
-            if (e.target === importModal) {
-                importModal.classList.add('hidden');
-            }
-        });
-    }
-    
-    // Reset the form
-    document.getElementById('imageURL').value = '';
-    document.getElementById('importPreview').classList.add('hidden');
-    document.getElementById('importImageFromURL').disabled = true;
-    
-    // Show modal
-    importModal.classList.remove('hidden');
-}
-
-// Import image from URL
-function importImageFromURL(url) {
-    if (!url) return;
-    
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.blob();
-        })
-        .then(blob => {
-            // Get filename from URL
-            const urlParts = url.split('/');
-            const filename = urlParts[urlParts.length - 1] || 'imported-image.jpg';
-            
-            // Create File object
-            const file = new File([blob], filename, { type: blob.type });
-            
-            // Create DataTransfer object to simulate file input
-            const dataTransfer = new DataTransfer();
-            dataTransfer.items.add(file);
-            nftImageInput.files = dataTransfer.files;
-            
-            // Update preview
-            previewImg.src = URL.createObjectURL(blob);
-            imagePreviewDiv.classList.remove('hidden');
-            
-            showCustomNotification('Image imported successfully!', 'success');
-        })
-        .catch(error => {
-            console.error('Error importing image:', error);
-            showCustomNotification('Error importing image: ' + error.message, 'error');
-        });
-}
-
-// Select image from gallery
-function selectGalleryImage(image) {
-    // Create a File object from the URL (simulate file upload)
-    fetch(image.fullImage)
-        .then(res => res.blob())
-        .then(blob => {
-            const file = new File([blob], `${image.name}.jpg`, { type: 'image/jpeg' });
-            
-            // Create a DataTransfer object to simulate a file input change event
-            const dataTransfer = new DataTransfer();
-            dataTransfer.items.add(file);
-            nftImageInput.files = dataTransfer.files;
-            
-            // Trigger the image preview
-            previewImg.src = image.fullImage;
-            imagePreviewDiv.classList.remove('hidden');
-            
-            // Show notification
-            showCustomNotification(`Selected image: ${image.name}`, 'success');
-        })
-        .catch(error => {
-            console.error('Error selecting gallery image:', error);
-            showCustomNotification('Error selecting image. Please try another.', 'error');
-        });
 } 
